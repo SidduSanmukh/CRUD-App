@@ -8,9 +8,7 @@
   border-radius: 10px;
   /* box-shadow: 2px 2px 30px white; */
 }
-.userTable table {
-  /* height: 60vh; */
-}
+
 .userTable table thead th {
   background-color: white;
   color: black;
