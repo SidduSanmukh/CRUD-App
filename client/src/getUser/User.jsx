@@ -3,6 +3,7 @@ import "./User.css";
 import axios from "axios";
 import AddUser from "../addUser/AddUser";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -20,13 +21,28 @@ const User = () => {
     fetchData();
   }, []);
   console.log(users);
+
+  const deleteUser = async (userId) => {
+    await axios
+      .delete(`http://localhost:1826/api/user/${userId}`)
+      .then((response) => {
+        setUsers((prevUser) => prevUser.filter((user) => user._id !== userId));
+        toast.success(response.data.message, { position: "top-center" });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
-    <div>
-      <div className="userTable ">
-        <h1>Create User</h1>
+    <div className="main">
+      <div className="userInfo">
+        <h1>User Info</h1>
         <Link to="/add" type="button" className="btn btn-primary">
           Add User <i className="fa-solid fa-user-plus"></i>
         </Link>
+      </div>
+      <div className="userTable ">
         <table className="table table-dark table-bordered text-center mt-3">
           <thead>
             <tr>
@@ -34,7 +50,7 @@ const User = () => {
               <th scope="col">name</th>
               <th scope="col">Email</th>
               <th scope="col">Address</th>
-              <th scope="col">Operaions</th>
+              <th scope="col">Operations</th>
             </tr>
           </thead>
           <tbody>
@@ -53,7 +69,11 @@ const User = () => {
                     >
                       <i className="fa-solid fa-pen-to-square"></i>
                     </Link>
-                    <button type="button" className="btn btn-danger">
+                    <button
+                      onClick={() => deleteUser(user._id)}
+                      type="button"
+                      className="btn btn-danger"
+                    >
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </td>
