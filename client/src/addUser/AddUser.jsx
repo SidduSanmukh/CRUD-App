@@ -45,6 +45,7 @@ const AddUser = () => {
           <input
             type="text"
             name="name"
+            required
             onChange={inputHandler}
             id="name"
             placeholder="Enter your name"
@@ -56,6 +57,7 @@ const AddUser = () => {
           <input
             type="email"
             name="email"
+            required
             onChange={inputHandler}
             id="email"
             placeholder="Enter your email"
@@ -67,6 +69,7 @@ const AddUser = () => {
           <input
             type="text"
             name="address"
+            required
             onChange={inputHandler}
             id="address"
             placeholder="Enter your address"
